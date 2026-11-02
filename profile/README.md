@@ -15,68 +15,24 @@ The product code is private because it runs in a HIPAA-covered environment and s
 
 ## Activity log
 
-What was built, changed and shipped, in date order, from the commit history of every repo in this organization: about 2,000 unique commits across all branches as of November 2, 2026 (1,906 on `main`, and 98 more on other branches). The timeline is read from the four repos where nearly all of the work is: `linggollms-asd-idd-webapp`, `linggollms-aphasia-webapp`, `website-refresh-studio` and `linggollms-animation-studio`. The new code base began on September 4, 2026 in the `mylinggo` account and moved into this organization with its full history. Until mid-October, commits reached GitHub through a hosting tool's sync, so about 1,000 carry its bot label and arrive in bursts; dates inside those bursts are approximate. The code was written by the founder with Claude Code.
+What was built and shipped, from the commit history of every repo in this organization (about 2,000 unique commits as of November 2, 2026). The code was written by the founder with Claude Code; it began in the `mylinggo` account on September 4, 2026 and moved here with its full history.
 
 ### Before September 2026
 
-Linggo was founded by a Board Certified Behavior Analyst with years of AAC practice. The earlier Linggo platform, built by a contracted engineering team, served families and clinicians from its first beta in 2021, with about 2,900 registered learners and professionals. In September 2026 its graph database cluster ran into trouble: reads slowed and writes stopped. The lessons were documented, and the platform was rebuilt from new code, in a new company (Linggo USA Inc, doing business as Linggo LLMs), on an environment built for health information from the first day.
+Linggo was founded by a Board Certified Behavior Analyst with years of AAC practice. The original Linggo platform, built from 2020 by a contracted engineering team, served families and clinicians from its first beta in 2021, with about 2,900 registered learners and professionals. In September 2026 its graph database cluster ran into trouble: reads slowed and writes stopped. The lessons were documented, and the platform was rebuilt from new code, in a new company (Linggo USA Inc, doing business as Linggo LLMs), on an environment built for health information from the first day.
 
-### September 2026
+### September to November 2026
 
-| Date | Area | What changed |
+| When | Area | What was built or shipped |
 | --- | --- | --- |
-| Sept 4 | App | ASD/IDD code base started from a TanStack Start template; every change on a branch and pull request |
-| Sept 10–11 | App | Accounts, boards, the Language Tree flow; Spanish added to four languages |
-| Sept 15 | App | Linggo word library, photos and emoji pictures, the Dashboard with Builder and Settings, Keyboard first |
-| Sept 15 | Database | Word model v2 migration |
-| Sept 15 | Security | Hashed PIN functions; admin-only clinician links |
-| Sept 16 | App | Full-screen Quick Chat; default voice; demo voice and sign-in fixes |
-| Sept 16–18 | Database | Library and word-forms SQL, skin-tone and default-character migrations, four emoji migrations |
-| Sept 16–17 | Docs | Numbered product decision log started (`docs/logic/decisions.md`) |
-| Sept 17–18 | App | Symbol Lab as its own Dashboard tool; emoji for 710 more words; 116 new words |
-| Sept 22 | App | Aphasia repo started from the same template |
-| Sept 25 | Architecture | Neptune export tool added |
-| Sept 28 | Security | Sign-in by email only (phone and WhatsApp hidden); password-reset link fixed |
-| Sept 29 | Database | PIN functions fixed for pgcrypto on the live database, with a server fallback |
-| Sept 30 | App | 29-phrase Quick Chat; Aphasia onboarding screens |
-
-### October 2026
-
-| Date | Area | What changed |
-| --- | --- | --- |
-| Oct 4–7 | App | ElevenLabs voices in the voice picker; Symbol Lab composes symbols from several emoji, suggests word types and forms, catches duplicates |
-| Oct 6 | App | Offline: the board, pictures and chosen voice work without a connection |
-| Oct 11–12 | App | Accessibility and usability fixes from a QA pass; My Topics builder with columns and folders |
-| Oct 13 | Database | Numbered updates 0021 and 0023; new boards start with starter topics |
-| Oct 13–14 | App | Lily's demo board with her voice; Scene Chat with AI suggestions for hotspots, phrases and topics |
-| Oct 14 | Security | Limits on sign-in codes, PIN tries and backup codes |
-| Oct 14–15 | Database | Update 0027; a test that database updates are dated in order; child starter topics; 0036 renumbered after the host's sync branch |
-| **Oct 16** | **Architecture** | **Move to AWS:** sign-in on Cognito, data through PostgREST on RDS Postgres instead of the first host's database (moved accounts keep their old id through the token), S3, App Runner build |
-| Oct 16 | App | Natural voices from Amazon Polly instead of OpenAI; AI helpers on Bedrock (Nova, Claude when unlocked); the board opens from its saved copy at once |
-| Oct 17 | Database | Aphasia: database build Lambda; its own numbered updates from 0056 on |
-| Oct 17–20 | App | Aphasia: Talking With Me and Speaking Up topics, What's new, Show/Hide on password and PIN, wallet card with QR code, My Day sentence starters |
-| Oct 20–22 | Docs | Architecture target; care-team architecture; evidence review of the v1 beta |
-| **Oct 21** | **Architecture** | **Aphasia in its own AWS member account**, under an organization-wide BAA: CloudFormation, CloudTrail, GuardDuty, AWS Config HIPAA pack (130 checks), Security Hub, KMS, private encrypted RDS, Neptune with an audit log; deploys from `main` |
-| Oct 22 | Security | ElevenLabs off by default; OpenAI removed from voices; "Linggo LLMs" name in all five languages |
-| Oct 23 | App | **Aphasia beta live** at `webapp-pwa.linggollms.com`; phone and iPad layouts (landscape, one tile size, phone keyboard) |
-| Oct 23–24 | Docs | PRD and TRD |
-| Oct 28 | Docs | Two-apps design, AWS account kit, target design, consent once at first invitation; GitHub as the origin for technical docs |
-| Oct 28 | App | ASD/IDD: the same phone and iPad layouts |
-| Oct 29 | App | Chosen voice kept for offline use; sign-up stands on its own |
-| Oct 29 | Website | Visitor AI helper off; Health Data Privacy Policy page |
-| Oct 29–30 | Studio | Animation studio: pose library, character frames, first lesson, ADR 0001 |
-| Oct 30 | Security | Aphasia: ElevenLabs only with a person's own account. Privacy Policy and Terms of Use published at policies.linggollms.com |
-| **Oct 30–31** | **Architecture** | **Both apps on ECS Fargate** in private networks behind HTTPS-only load balancers, logs kept a year, alarms; App Runner kept as the way back. Fargate docs for both apps |
-| Oct 30–31 | App | ASD/IDD: optional text messages at sign-up; create-account links open the form |
-
-### November 2026
-
-| Date | Area | What changed |
-| --- | --- | --- |
-| Nov 1 | App | **Both products in beta**, including the ASD/IDD web app on AWS (`webapp-dd.linggollms.com`). Demo: Lily and Justin's boards, the real Dashboard with no PIN, never leads to sign-in; demo-lily and demo-justin addresses |
-| Nov 1 | Website | Policies section; sign-in and sign-up links point to the ASD/IDD app on AWS |
-| Nov 2 | Docs | Architecture page in both apps (AWS, BAA boundary, security controls, accessibility, gaps before real patients); Accessibility Statement and Privacy Policy list both apps at their AWS addresses |
-| Nov 2 | Security | Leftover `.env` from the first host removed from the ASD/IDD repo and blocked by `.gitignore` |
+| Sept 4–18 | App, Database | New code base started (every change on a branch and pull request). The board: Language Tree, My Words, Keyboard with predictions, Quick Chat, caregiver Builder behind a PIN, a 3,593-word library with photos and emoji, Symbol Lab, five languages, switch-access focus. First database migrations; numbered product decision log |
+| Sept 22–30 | App, Security | Aphasia product specified and started. Hashed PINs, admin-only clinician links, email-only sign-in |
+| Oct 4–15 | App, Database | Offline use (board, pictures and chosen voice), opt-in character voices, Symbol Lab composition, My Topics builder, Scene Chat with AI suggestions, Lily's demo board, an accessibility QA pass, limits on codes and PIN tries, numbered database updates |
+| **Oct 16** | **Architecture** | **Move to AWS:** Cognito sign-in, PostgREST on RDS Postgres, S3, Polly voices, Bedrock AI helpers (Nova; Claude when unlocked) |
+| Oct 17–22 | Architecture, App | Aphasia app on AWS in its own member account under an organization-wide BAA, built from CloudFormation: CloudTrail, GuardDuty, AWS Config HIPAA pack (130 checks), Security Hub, KMS, private encrypted RDS, Neptune. Adult starter topics, wallet card, What's new. OpenAI removed. Architecture target and care-team design |
+| **Oct 23** | **App** | **Aphasia beta live** at `webapp-pwa.linggollms.com`. Phone and iPad layouts. PRD and TRD |
+| Oct 28–31 | Architecture, Docs | Both apps on ECS Fargate in private networks behind HTTPS-only load balancers, with alarms. Two-apps design and AWS account kit. Privacy Policy and Terms of Use published. ASD/IDD sign-up with optional text messages |
+| **Nov 1–2** | **App, Docs** | **Both products in beta, including the ASD/IDD web app on AWS** (`webapp-dd.linggollms.com`). Public demo boards (Lily, Justin). Architecture page for each app; Accessibility Statement and Privacy Policy list both apps at their AWS addresses |
 
 ### Development record
 
@@ -101,20 +57,8 @@ xychart-beta
   bar [1, 172, 728, 50, 99, 64, 386, 128, 250, 16]
 ```
 
-| Week of | ASD/IDD | Aphasia | Website | Studio |
-| --- | --- | --- | --- | --- |
-| Aug 31 | 1 | | | |
-| Sept 7 | 172 | | | |
-| Sept 14 | 728 | | | |
-| Sept 21 | 49 | 1 | | |
-| Sept 28 | 79 | 20 | | |
-| Oct 5 | 64 | | | |
-| Oct 12 | 337 | 48 | 1 | |
-| Oct 19 | 10 | 118 | | |
-| Oct 26 | 83 | 82 | 48 | 37 |
-| Nov 2 | 14 | 2 | | |
 
-The September spikes are partly sync bursts, so they show when work reached GitHub rather than exact build days.
+Until mid-October, commits reached GitHub through a hosting tool's sync, so the September bars show when work arrived rather than exact build days.
 
 ### Notable doc changes
 
