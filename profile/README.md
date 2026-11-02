@@ -1,39 +1,50 @@
 # Linggo LLMs
 
-**AAC (augmentative and alternative communication) for people with little or no speech — rebuilt from the first line of code in ten weeks, by a clinician, in a HIPAA-covered AWS environment. Beta launched November 1, 2026.**
+**AAC (augmentative and alternative communication) for people with little or no speech, built by a clinician on a HIPAA-covered AWS environment. Both products in beta since November 1, 2026.**
 
 Linggo LLMs (Linggo USA Inc) gives children with autism or IDD and adults with aphasia, dementia or brain injury a way to speak: tap pictures, words or whole sentences and the device says them aloud, in the person's own language. Two products, one code base, five languages (English, Spanish, Arabic, Mandarin, French).
 
 | Product | Who it is for | Repo | Status |
 | --- | --- | --- | --- |
-| **Linggo LLMs ASD/IDD** | Children and youth who need AAC; parents, teachers, therapists | `linggollms-asd-idd-webapp` (private) · [overview](https://github.com/linggollms/linggollms-docs/blob/main/apps/asd-idd.md) | Beta, web app + PWA |
-| **Linggo LLMs Aphasia** | Adults after stroke, with dementia or brain injury; families, carers, SLPs | `linggollms-aphasia-webapp` (private) · [overview](https://github.com/linggollms/linggollms-docs/blob/main/apps/aphasia.md) | Beta, web app + PWA |
+| **Linggo LLMs ASD/IDD** | Children and youth who need AAC; parents, teachers, therapists | `linggollms-asd-idd-webapp` (private) · [overview](https://github.com/linggollms/linggollms-docs/blob/main/apps/asd-idd.md) | Beta on AWS, web app + PWA (`webapp-dd.linggollms.com`); public demo boards |
+| **Linggo LLMs Aphasia** | Adults after stroke, with dementia or brain injury; families, carers, SLPs | `linggollms-aphasia-webapp` (private) · [overview](https://github.com/linggollms/linggollms-docs/blob/main/apps/aphasia.md) | Beta on AWS, web app + PWA (`webapp-pwa.linggollms.com`) |
 
 The product code is private because it runs in a HIPAA-covered environment and serves people's health information. Everything that can be public about it is in [`linggollms-docs`](https://github.com/linggollms/linggollms-docs): architecture, history, each repo's overview, and how the company runs. [Why the code is private.](https://github.com/linggollms/linggollms-docs/blob/main/why-the-code-is-private.md)
 
 ---
 
-## The ten weeks
+## Activity log
 
-Linggo was founded and shipped its first working beta during COVID. The original product (Python Serverless on AWS Lambda, DynamoDB, a self-managed Neo4j graph, a Flutter front end) served roughly 2,900 registered learners and professionals, but the codebase had gone quiet: the last meaningful commits were September 2024. Users around the world depended on an app nobody was actively building.
+What was built and shipped, from the commit and pull request history. The new code base began on September 4, 2026 in the `mylinggo` account and moved into this organization in late October; its full history came with it.
 
-In early September 2026 the Neo4j cluster behind it went down. Reads degraded, writes stopped, and the people who relied on Linggo to speak lost their voices. The developer was unreachable. The founder, a BCBA and clinician who had never opened a terminal, fixed it herself.
+### September 2026
 
-Then she decided the company would not be at anyone's mercy again.
-
-| | |
+| Date | Built or shipped |
 | --- | --- |
-| **Sept 4** | First commit of the new codebase. The founder in the terminal with Claude Code from day one; every change on a branch and pull request. |
-| **Sept 10–18** | The heavy build: ~940 commits in two weeks. Language Tree, My Words, Keyboard with predictions, Quick Chat, caregiver Builder behind a PIN, a 3,593-word library, Symbol Lab, five languages, switch-access focus handling. |
-| **Sept 30** | The adult (aphasia) product is specified and started. |
-| **Oct 15–17** | Decision: the managed database the first version ran on could not meet HIPAA requirements, and migrating users' language graphs later would only get harder. The whole stack moves to AWS: Cognito, PostgREST on RDS Postgres, S3, Bedrock, Polly. The Lovable hosting/sync layer is removed. |
-| **Oct 21–22** | The aphasia product gets its own AWS member account inside a Linggo LLMs AWS Organization: organization-wide BAA, CloudTrail, GuardDuty, AWS Config with the HIPAA conformance pack, Security Hub, built from CloudFormation. Amazon Neptune graph built, IAM-only, audited. |
-| **Oct 23** | Aphasia beta live at webapp-pwa.linggollms.com. PRD, TRD, architecture target, care-team architecture and 15 ADRs written. |
-| **Nov 1** | Both products in beta. |
+| Sept 4 | First commit of the new code base. Every change on a branch and pull request from day one. |
+| Sept 10–18 | The board: Language Tree, My Words, Keyboard with predictions, Quick Chat, caregiver Builder behind a PIN, a 3,593-word library, Symbol Lab, five languages, switch-access focus handling. |
+| Sept 22–30 | The adult (aphasia) product specified and started. |
 
-**What that produced, by a solo founder in 58 days:** two products in beta on a HIPAA-covered AWS environment built entirely from code; 130 automated HIPAA checks (AWS Config conformance pack) and Security Hub running in the account that holds health data; audit logging on every data access and every graph query; 15 architecture decision records and a plain-language change log; an evidence review against the AAC research base before release; a database schema rebuilt from scratch and rehearsed locally before every deploy; a container security scan that found seven issues, all in the Debian base image and none in Linggo's own code.
+### October 2026
 
-Supporting numbers: 2,049 unique commits and 179 merged pull requests across the organization, Sept 4 – Nov 1, 2026, by the founder and Claude Code. (Until mid-October, commits reached GitHub through a Lovable sync, so about 1,100 carry its bot label; the code was written in Claude Code.)
+| Date | Built or shipped |
+| --- | --- |
+| Oct 15–17 | Whole stack moved to AWS: Cognito sign-in, PostgREST on RDS Postgres, S3, Bedrock, Polly. |
+| Oct 21–22 | Linggo LLMs AWS Organization with an organization-wide BAA. Aphasia member account built from CloudFormation: CloudTrail, GuardDuty, AWS Config HIPAA conformance pack (130 checks), Security Hub, KMS, private encrypted RDS, Neptune graph (IAM-only, audited). |
+| Oct 23 | **Aphasia beta live** at `webapp-pwa.linggollms.com`. PRD, TRD, architecture target, care-team architecture and decision records written. |
+| Oct 24–29 | Phones and iPads: landscape layout, one tile size, phone keyboard. Speech on iPhones in any browser and in silent mode. Chosen voice saved for use offline; a tap speaks at once. Calm Lagoon theme for adults. Care-team design with one account for every role. Old Linggo error analysis. |
+| Oct 30 | Privacy Policy and Terms of Use published at `policies.linggollms.com`. OpenAI removed from every service; ElevenLabs only with a person's own account in the aphasia app. |
+| Oct 30–31 | Both apps running on ECS Fargate in private networks beside App Runner, with HTTPS-only load balancers, year-long logs and alarms. ASD/IDD: standalone sign-up, optional text messages at sign-up, the board fits phones, iPads and computers. |
+
+### November 2026
+
+| Date | Built or shipped |
+| --- | --- |
+| Nov 1 | **Both products in beta, including the ASD/IDD web app on AWS.** Both apps: build a new word from a category, and say when a category isn't on the board. |
+| Nov 1–2 | Public demo: Lily's and Justin's communication boards with child voices, no sign-in, at `demo-lily.linggollms.com` and `demo-justin.linggollms.com`; embeddable on `linggollms.com` only. |
+| Nov 2 | Architecture page for each app (`docs/architecture.md`): AWS, BAA boundary, security controls, accessibility, gaps before real patients. |
+
+Commits on `main` as of November 2, 2026: 1,534 in `linggollms-asd-idd-webapp` (since September 4, including the `mylinggo` period) and 269 in `linggollms-aphasia-webapp` (since September 22). Until mid-October, commits reached GitHub through a sync tool, so many carry its bot label; the code was written by the founder with Claude Code.
 
 ---
 
@@ -62,8 +73,8 @@ flowchart LR
   APP["One code base<br/>same app, two products"]
   subgraph ORG["Linggo LLMs AWS Organization · one BAA · one audit trail"]
     direction LR
-    A["ASD/IDD account<br/>the ASD/IDD app"]
-    B["Aphasia account<br/>the Aphasia app + language graph"]
+    A["Linggo LLMs account<br/>the ASD/IDD app"]
+    B["Aphasia member account<br/>the Aphasia app + language graph"]
   end
   P --> APP
   APP --> A
@@ -75,24 +86,21 @@ Inside each account, the same pattern:
 
 ```mermaid
 flowchart LR
-  F["ECS Fargate<br/>app server"]
+  LB["Load balancer<br/>HTTPS only"] --> F["ECS Fargate<br/>app server, private network"]
   F --> C["Cognito<br/>sign-in"]
-  F --> D["RDS Postgres<br/>the record"]
+  F --> API["PostgREST<br/>database API"]
+  API --> D["RDS Postgres<br/>the record"]
   F --> S["S3<br/>pictures"]
   F --> V["Polly<br/>voices"]
   F --> AI["Bedrock<br/>AI helpers"]
   D -. Aphasia only .-> N["Neptune<br/>language graph"]
 ```
 
-Both apps run on ECS Fargate inside each account's private network. Postgres is the record of everything. Neptune sits beside it and links a person to what they said, to the words and pictures they used, to what each word means *for them*. First the person's own graph; later, an anonymous shared graph from people who opt in. Only HIPAA-eligible AWS services touch what a person says; any outside voice or AI service needs a BAA or stays off.
+Each app has its own sign-in pool, database, buckets and keys; health information never mixes between them. Postgres is the record of everything. Row-level security in Postgres decides what each signed-in person can read, using the token Cognito gives them. Neptune sits beside Postgres and links a person to what they said, to the words and pictures they used, to what each word means *for them*: first the person's own graph, later an anonymous shared graph from people who opt in. Only HIPAA-eligible AWS services touch what a person says; any outside voice or AI service needs a BAA or stays off.
 
-In progress: an AI assistant inside each app for questions and support, on Bedrock in the same account; for Aphasia, PHI intake by email (every message carries a confidentiality addendum) and by secure upload in the app, into the account's encrypted storage, processed inside the boundary. After the beta: iOS, Google Play and Amazon Appstore apps from the same code base, offered first to people who have had good experiences with Linggo and want to explore the new AI features. The full picture, both apps side by side: [architecture](https://github.com/linggollms/linggollms-docs/blob/main/platform/architecture.md).
+**Where it stands (November 2, 2026).** Both apps have their Fargate copy built in a private network; App Runner still serves traffic until the DNS switch, then is paused. Next: the database API moves off App Runner into the private network, the ASD/IDD database is rebuilt inside its private network from the same CloudFormation kit as the aphasia app, then Multi-AZ, a second NAT and AWS WAF before real patients. Each repo's `docs/architecture.md` has the full picture and the gap list; the public summary is [here](https://github.com/linggollms/linggollms-docs/blob/main/platform/architecture.md).
 
----
-
-## Patent
-
-US Patent Application 18/452,469, *Assistive Communication Using Word Trees*: predicting what a person is trying to say from a graph of their own language, with the clinician and family in the loop to train it. Prosecution is ongoing; the Neptune graph above is where it lives in the product.
+In progress: an AI assistant inside each app for questions and support, on Bedrock in the same account; for Aphasia, PHI intake by email (every message carries a confidentiality addendum) and by secure upload in the app, into the account's encrypted storage, processed inside the boundary. After the beta: iOS, Google Play and Amazon Appstore apps from the same code base.
 
 ---
 
@@ -100,6 +108,7 @@ US Patent Application 18/452,469, *Assistive Communication Using Word Trees*: pr
 
 - **Clinician-led.** The founder is a Board Certified Behavior Analyst (M.ADS, BCBA) with years of AAC practice. Product decisions are logged with dates and reasons (`docs/logic/decisions.md`), and an evidence-review agent checks each release against the AAC research base for the target population (minimal to no speech; autism/IDD; acquired disorders).
 - **AI-native.** The founder builds with Claude Code; agents run research, competitor tracking, ops checks and social. The company runs on an AI-native operating system ([COM Systems](https://github.com/linggollms/linggollms-docs/blob/main/com-systems.md)) in Notion, with humans making every decision that touches a person's data. [The agents.](https://github.com/linggollms/linggollms-docs/blob/main/agents.md)
+- **Accessible by default.** Screens are designed and checked against WCAG 2.2 AA, with keyboard and switch access, screen readers and five languages. [Accessibility Statement.](https://www.linggollms.com/accessibility)
 - **Plain words.** Documentation is written for clinicians, families and partners, not just developers.
 
 **Contact:** Ling Ly Tan, Founder and CEO · admin@linggollms.com · [linggollms.com](https://linggollms.com)
