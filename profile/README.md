@@ -15,7 +15,7 @@ The product code is private because it runs in a HIPAA-covered environment and s
 
 ## Activity log
 
-What was built, changed and shipped, in date order, from the commit history of `linggollms-asd-idd-webapp`, `linggollms-aphasia-webapp`, `website-refresh-studio` and `linggollms-animation-studio` (1,894 commits, all read on November 2, 2026). The new code base began on September 4, 2026 in the `mylinggo` account and moved into this organization with its full history. Until mid-October, commits reached GitHub through a hosting tool's sync, so about 1,000 carry its bot label and arrive in bursts; dates inside those bursts are approximate. The code was written by the founder with Claude Code.
+What was built, changed and shipped, in date order, from the commit history of every repo in this organization: about 2,000 unique commits across all branches as of November 2, 2026 (1,906 on `main`, and 98 more on other branches). The timeline is read from the four repos where nearly all of the work is: `linggollms-asd-idd-webapp`, `linggollms-aphasia-webapp`, `website-refresh-studio` and `linggollms-animation-studio`. The new code base began on September 4, 2026 in the `mylinggo` account and moved into this organization with its full history. Until mid-October, commits reached GitHub through a hosting tool's sync, so about 1,000 carry its bot label and arrive in bursts; dates inside those bursts are approximate. The code was written by the founder with Claude Code.
 
 ### Before 2026: the original Linggo
 
@@ -93,6 +93,8 @@ As of November 2, 2026, from each repo's git history.
 | `linggollms-aphasia-webapp` | 271 | Sept 22 – Nov 2 | 46 | 139: the same 65, plus 74 on AWS RDS (`0000` to `0073_lagoon_default_theme`) | 70 | 26 |
 | `website-refresh-studio` | 49 | Oct 16 – Nov 1 | | | | |
 | `linggollms-animation-studio` | 37 | Oct 29 – Oct 30 | | | | |
+
+Across the whole organization: **about 2,000 unique commits** on all branches (1,906 on `main` plus 98 on other branches; feature branches of the Aphasia app hold 50 of those). The smaller repos (ops, design system, docs, this profile, social, fundraising) add 12 on `main`. Pull requests from the `mylinggo` period are not counted, because that repository is no longer reachable; its commits are.
 
 Every database change is a numbered SQL file, rehearsed on a local Postgres before it is deployed; on AWS a build job inside the private network applies only the files it has not recorded.
 
