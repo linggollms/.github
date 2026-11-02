@@ -17,14 +17,9 @@ The product code is private because it runs in a HIPAA-covered environment and s
 
 What was built, changed and shipped, in date order, from the commit history of every repo in this organization: about 2,000 unique commits across all branches as of November 2, 2026 (1,906 on `main`, and 98 more on other branches). The timeline is read from the four repos where nearly all of the work is: `linggollms-asd-idd-webapp`, `linggollms-aphasia-webapp`, `website-refresh-studio` and `linggollms-animation-studio`. The new code base began on September 4, 2026 in the `mylinggo` account and moved into this organization with its full history. Until mid-October, commits reached GitHub through a hosting tool's sync, so about 1,000 carry its bot label and arrive in bursts; dates inside those bursts are approximate. The code was written by the founder with Claude Code.
 
-### Before 2026: the original Linggo
+### Before September 2026
 
-| When | What |
-| --- | --- |
-| 2019 | Development began |
-| 2021 | First beta, during COVID: a Python Serverless backend on AWS Lambda and API Gateway, Cognito, DynamoDB, S3, a self-managed Neo4j graph on EC2, and a Flutter front end, built by a contracted team. About 2,900 registered learners and professionals |
-| Sept 2024 | Last meaningful commits to that code base (held by the original Canadian entity, not in this organization) |
-| Early Sept 2026 | The Neo4j cluster failed; reads degraded and writes stopped. The incident review listed what the new platform must not repeat: public access and exposed ports, credentials in repository history, no monitoring, untested backups |
+Linggo was founded by a Board Certified Behavior Analyst with years of AAC practice. The earlier Linggo platform, built by a contracted engineering team, served families and clinicians from its first beta in 2021, with about 2,900 registered learners and professionals. In September 2026 its graph database cluster ran into trouble: reads slowed and writes stopped. The lessons were documented, and the platform was rebuilt from new code, in a new company (Linggo USA Inc, doing business as Linggo LLMs), on an environment built for health information from the first day.
 
 ### September 2026
 
