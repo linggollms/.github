@@ -34,11 +34,28 @@ stay the same.
 
 Open Claude Code in the app repo and say, for example:
 
-- "Use the linggo-user-tester agent. Stage 0, then stage 1 as the parent, on a phone."
-- "Use the linggo-user-tester agent. Stage 5, Arabic and Mandarin, keyboard only."
-- "Use the linggo-user-tester agent. Stage 6 for the three P0s from yesterday's report."
-- "Use the linggo-tutorial-writer agent. Task: add a new word to My Words. English first."
-- "Use the linggo-tutorial-writer agent. Make the audio and video for the five tutorials I approved, all five languages."
+**Linggo LLMs Aphasia** (`linggollms-aphasia-webapp`)
+
+1. "Use the linggo-user-tester agent. Stage 0, then stage 1 as Alex (AP-2), on his phone."
+2. "Use the linggo-user-tester agent. Stage 2 as Sam (AP-1), left hand only."
+3. "Use the linggo-user-tester agent. Stage 4, the Linggo LLMs accessibility test pass."
+4. "Use the linggo-user-tester agent. Stage 5 as Karim (AP-4, Arabic) and Wei (AP-5, Mandarin), keyboard only."
+5. "Use the linggo-user-tester agent. Stage 6 for P0-1, P0-2 and P0-3 from yesterday's report."
+6. "Use the linggo-tutorial-writer agent. Task: add a new word to My Words, as Alex (AP-2). English first."
+7. "Use the linggo-tutorial-writer agent. Make the audio and video for the five tutorials I approved, all five languages."
+
+**Linggo LLMs ASD/IDD** (`linggollms-asd-idd-webapp`)
+
+1. "Use the linggo-user-tester agent. Stage 0, then stage 1 as Sofia (KP-2), on her phone."
+2. "Use the linggo-user-tester agent. Stage 2 as Maya (KP-1), pictures only."
+3. "Use the linggo-user-tester agent. Stage 4, the Linggo LLMs accessibility test pass."
+4. "Use the linggo-user-tester agent. Stage 5 as Omar (KP-3, Arabic, keyboard only) and Grandma Li (KP-5, Mandarin)."
+5. "Use the linggo-user-tester agent. Stage 6 for P0-1, P0-2 and P0-3 from yesterday's report."
+6. "Use the linggo-tutorial-writer agent. Task: add a new word to My Words, as Sofia (KP-2). English first."
+7. "Use the linggo-tutorial-writer agent. Make the audio and video for the five tutorials I approved, all five languages."
+
+"As the parent" or "as the learner" also works: each app's
+`docs/testing-context.md` maps the role to a persona.
 
 ### The tester's stages
 
