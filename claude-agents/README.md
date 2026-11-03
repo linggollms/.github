@@ -7,7 +7,7 @@ browser with Playwright, and writes reports and tutorials into the repo.
 
 | Agent | What it does | Where it writes | When it stops |
 | --- | --- | --- | --- |
-| `linggo-user-tester` | Tests the beta as a learner, companion or coach, in stages 0 to 6 | `docs/testing/` | After every stage |
+| `linggo-user-tester` | Tests the beta as the learner, or the family member who sets it up, in stages 0 to 6 | `docs/testing/` | After every stage |
 | `linggo-tutorial-writer` | Does a task in the beta and writes a step-by-step tutorial, then other languages, Polly audio, captions and video | `docs/tutorials/` | After the English draft, and again before audio and video |
 
 Change the agents here first, then copy them to both app repos, so the two
@@ -17,10 +17,11 @@ stay the same.
 
 1. Copy `linggo-user-tester.md` and `linggo-tutorial-writer.md` into
    `.claude/agents/`.
-2. Add `docs/testing-context.md`: the product, the beta address, the test
-   accounts (environment variable names only, never passwords), made-up
-   details to type in, the feature list and the Polly voice settings. Both
-   agents read it first.
+2. Add `docs/testing-context.md`: which Linggo LLMs app it is, the beta
+   address, who uses the app today, the test account (environment variable
+   names only, never passwords), the tester personas, what matters most for
+   accessibility in this app, the feature list and the Polly voice
+   settings. Both agents read it first.
 3. Set the test account environment variables where Claude Code runs (on
    the Mac, or in the Claude Code environment's settings for web sessions).
 4. Playwright is **not** added to the app's `package.json`: changing it
@@ -47,9 +48,26 @@ Open Claude Code in the app repo and say, for example:
 | 1 | First time, start to finish, as one person (sign in, setup, first sentence, Dashboard, lock). |
 | 2 | Every feature in the feature list, one by one. |
 | 3 | Voices, Stop and Undo, speaking speed, no internet, slow internet. |
-| 4 | Accessibility: axe (WCAG 2.1 AA) and checks by hand (keyboard, focus, labels, tap size, zoom, themes). |
+| 4 | Accessibility: the Linggo LLMs accessibility test pass (WCAG 2.2 AA, brand rules, AAC needs), plus the app's own list in `docs/testing-context.md`. Ends with a Good / Needs work / Blocking rating and rows ready for the Accessibility Audit Results database. |
 | 5 | Languages (Arabic right to left) and ways of using it (keyboard only, switch, large text). |
 | 6 | Retest named findings: Fixed, Still there or Changed. |
+
+There is no Companion app or Coach app yet: the learner and the family
+member or carer setting up share one account (the family member uses the
+Dashboard, behind the PIN). The agents test only who each repo's
+`docs/testing-context.md` lists, so add companion and coach accounts there
+once those apps exist.
+
+Each agent works on **one app per run**: the Aphasia app in
+`linggollms-aphasia-webapp`, the ASD/IDD app in `linggollms-asd-idd-webapp`.
+What differs between the apps (beta address, personas, features, voices,
+what matters most for accessibility) lives in that repo's
+`docs/testing-context.md`, so the agent files stay the same in both.
+
+Stage 4 and the tutorial checks follow the Notion page "Run the Linggo LLMs
+accessibility test pass" (Company Brain). If that page changes, update
+stage 4 of `linggo-user-tester.md` and the accessibility checks in
+`linggo-tutorial-writer.md` here, then copy them to both app repos.
 
 Findings are rated P0 to P3 and numbered (P0-1, P1-2…) so a later stage 6
 or a developer can point at them.
