@@ -103,14 +103,17 @@ flowchart LR
   F --> S["S3<br/>pictures"]
   F --> V["Polly<br/>voices"]
   F --> AI["Bedrock<br/>AI helpers"]
-  D -. Aphasia only .-> N["Neptune<br/>language graph"]
+  D -. Aphasia built, ASD/IDD soon .-> N["Neptune<br/>language graph"]
+  F -. planned .-> FH["Smile CDR · FHIR R4<br/>private subnet"]
 ```
 
 Each app has its own sign-in pool, database, buckets and keys; health information never mixes between them. Postgres is the record of everything. Row-level security in Postgres decides what each signed-in person can read, using the token Cognito gives them. Neptune sits beside Postgres and links a person to what they said, to the words and pictures they used, to what each word means *for them*: first the person's own graph, later an anonymous shared graph from people who opt in. Only HIPAA-eligible AWS services touch what a person says; any outside voice or AI service needs a BAA or stays off.
 
-**Where it stands (November 2, 2026).** Both apps have their Fargate copy built in a private network; App Runner still serves traffic until the DNS switch, then is paused. Next: the database API moves off App Runner into the private network, the ASD/IDD database is rebuilt inside its private network from the same CloudFormation kit as the aphasia app, then Multi-AZ, a second NAT and AWS WAF before real patients. Each repo's `docs/architecture.md` has the full picture and the gap list; the public summary is [here](https://github.com/linggollms/linggollms-docs/blob/main/platform/architecture.md).
+**Where it stands (November 3, 2026).** Both apps have their Fargate copy built in a private network; App Runner still serves traffic until the DNS switch, then is paused. The Aphasia account has GuardDuty, the HIPAA conformance pack and Security Hub running; its Neptune cluster is built and kept stopped until the write path ships. Next: the database API moves off App Runner into the private network, the ASD/IDD database is rebuilt inside its private network from the same CloudFormation kit as the Aphasia app, then Multi-AZ, a second NAT and AWS WAF before real patients. Each repo's `docs/architecture.md` has the full picture and the gap list; the public summary is [here](https://github.com/linggollms/linggollms-docs/blob/main/platform/architecture.md).
 
-In progress: an AI assistant inside each app for questions and support, on Bedrock in the same account; for Aphasia, PHI intake by email (every message carries a confidentiality addendum) and by secure upload in the app, into the account's encrypted storage, processed inside the boundary. After the beta: iOS, Google Play and Amazon Appstore apps from the same code base.
+In progress: an AI assistant inside each app for questions and support, on Bedrock in the same account; for Aphasia, PHI intake by email (every message carries a confidentiality addendum) and by secure upload in the app, into the account's encrypted storage, processed inside the boundary.
+
+**Planned: hospitals and payers through FHIR.** Each product account gets its own FHIR layer so the two products never share one: a Smile CDR server (proposed; AWS HealthLake as the fallback) in a private subnet with its own encrypted database, reachable only by that account's app server, as the single door to hospital EHRs, payers and a future DME supplier partner. Three new apps on the same code base use it: Coach (SLPs, BCBAs and RBTs; a SMART on FHIR app launched from the EHR and listed in Smile's appSphere, with the SLP evaluation template built in), Admin (clinics, schools and hospitals) and Companion (families and carers, with consent on the person's behalf). Prior authorization follows the CMS-0057-F flow (CRD, DTR, PAS) ahead of the January 2027 payer deadline. Boards, taps, voice and the language graph stay in Linggo LLMs' own storage; only consented, minimum-necessary clinical data enters FHIR. The phases, the FHIR resource set and the decision record (ADR-016) are in the [architecture page](https://github.com/linggollms/linggollms-docs/blob/main/platform/architecture.md). After the beta: iOS, Google Play and Amazon Appstore apps from the same code base.
 
 ---
 
