@@ -15,7 +15,7 @@ The product code is private because it runs in a HIPAA-covered environment and s
 
 ## Activity log
 
-What was built and shipped, from the commit history of every repo in this organization (about 2,000 unique commits as of November 2, 2026). The code was written by the founder with Claude Code; it began in the `mylinggo` account on September 4, 2026 and moved here with its full history.
+What was built and shipped, from the git history of every repo in this organization. The code was written by the founder with Claude Code; it began in the `mylinggo` account on September 4, 2026 and moved here with its full history.
 
 ### Before September 2026
 
@@ -34,31 +34,9 @@ Linggo was founded by a Board Certified Behavior Analyst with years of AAC pract
 | Oct 28–31 | Architecture, Docs | Both apps on ECS Fargate in private networks behind HTTPS-only load balancers, with alarms. Two-apps design and AWS account kit. Privacy Policy and Terms of Use published. ASD/IDD sign-up with optional text messages |
 | **Nov 1–2** | **App, Docs** | **Both products in beta, including the ASD/IDD web app on AWS** (`webapp-dd.linggollms.com`). Public demo boards (Lily, Justin). Architecture page for each app; Accessibility Statement and Privacy Policy list both apps at their AWS addresses |
 
-### Development record
+### How the work is tracked
 
-As of November 2, 2026, from each repo's git history.
-
-| Repo | Commits | First – last | Merged pull requests | Database changes (SQL migrations) | Tests | Docs (`docs/*.md`) |
-| --- | --- | --- | --- | --- | --- | --- |
-| `linggollms-asd-idd-webapp` | 1,537 | Sept 4 – Nov 2 | 14 in this organization; earlier ones in the `mylinggo` repo | 114: 65 on the first host's Postgres (Sept 11–30), 49 on AWS RDS (`0000` to `0048_sms_contacts`) | 71 | 12 |
-| `linggollms-aphasia-webapp` | 271 | Sept 22 – Nov 2 | 46 | 139: the same 65, plus 74 on AWS RDS (`0000` to `0073_lagoon_default_theme`) | 70 | 26 |
-| `website-refresh-studio` | 49 | Oct 16 – Nov 1 | | | | |
-| `linggollms-animation-studio` | 37 | Oct 29 – Oct 30 | | | | |
-
-Across the whole organization: **about 2,000 unique commits** on all branches (1,906 on `main` plus 98 on other branches; feature branches of the Aphasia app hold 50 of those). The smaller repos (ops, design system, docs, this profile, social, fundraising) add 12 on `main`. Pull requests from the `mylinggo` period are not counted, because that repository is no longer reachable; its commits are.
-
-Every database change is a numbered SQL file, rehearsed on a local Postgres before it is deployed; on AWS a build job inside the private network applies only the files it has not recorded.
-
-```mermaid
-xychart-beta
-  title "Commits per week, all four repos (weeks starting Monday, 2026)"
-  x-axis ["Aug 31", "Sep 7", "Sep 14", "Sep 21", "Sep 28", "Oct 5", "Oct 12", "Oct 19", "Oct 26", "Nov 2"]
-  y-axis "Commits" 0 --> 750
-  bar [1, 172, 728, 50, 99, 64, 386, 128, 250, 16]
-```
-
-
-Until mid-October, commits reached GitHub through a hosting tool's sync, so the September bars show when work arrived rather than exact build days.
+Every change lands on a branch and goes through a pull request. Every database change is a numbered SQL migration, rehearsed on a local Postgres before it is deployed; on AWS a build job inside the private network applies only the files it has not recorded. Each app repo carries its own tests and a `docs/` folder that is the record of truth for that app. As of November 2, 2026: 114 migrations and 71 tests in the ASD/IDD app, 139 migrations and 70 tests in the Aphasia app, and 38 documentation pages between them.
 
 ### Notable doc changes
 
