@@ -1,6 +1,6 @@
 # Linggo LLMs
 
-**AAC (augmentative and alternative communication) for people with little or no speech, built by a clinician on a HIPAA-covered AWS environment. Both products in beta since November 1, 2026.**
+**AAC (augmentative and alternative communication) for people with little or no speech, built by a clinician on a HIPAA-covered AWS environment. Both products have been in beta since November 1, 2026 and are close to release, as is the new public website.**
 
 Linggo LLMs (Linggo USA Inc) gives children with autism or IDD and adults with aphasia, dementia or brain injury a way to speak: tap pictures, words or whole sentences and the device says them aloud, in the person's own language. Two products, one code base, five languages (English, Spanish, Arabic, Mandarin, French).
 
@@ -15,7 +15,7 @@ The product code is private because it runs in a HIPAA-covered environment and s
 
 ## Activity log
 
-What was built and shipped, from the commit history of every repo in this organization (about 2,000 unique commits as of November 2, 2026). The code was written by the founder with Claude Code; it began in the `mylinggo` account on September 4, 2026 and moved here with its full history.
+What was built and shipped, from the git history of every repo in this organization. The code was written by the founder with Claude Code; it began in the `mylinggo` account on September 4, 2026 and moved here with its full history.
 
 ### Before September 2026
 
@@ -34,31 +34,9 @@ Linggo was founded by a Board Certified Behavior Analyst with years of AAC pract
 | Oct 28–31 | Architecture, Docs | Both apps on ECS Fargate in private networks behind HTTPS-only load balancers, with alarms. Two-apps design and AWS account kit. Privacy Policy and Terms of Use published. ASD/IDD sign-up with optional text messages |
 | **Nov 1–2** | **App, Docs** | **Both products in beta, including the ASD/IDD web app on AWS** (`webapp-dd.linggollms.com`). Public demo boards (Lily, Justin). Architecture page for each app; Accessibility Statement and Privacy Policy list both apps at their AWS addresses |
 
-### Development record
+### How the work is tracked
 
-As of November 2, 2026, from each repo's git history.
-
-| Repo | Commits | First – last | Merged pull requests | Database changes (SQL migrations) | Tests | Docs (`docs/*.md`) |
-| --- | --- | --- | --- | --- | --- | --- |
-| `linggollms-asd-idd-webapp` | 1,537 | Sept 4 – Nov 2 | 14 in this organization; earlier ones in the `mylinggo` repo | 114: 65 on the first host's Postgres (Sept 11–30), 49 on AWS RDS (`0000` to `0048_sms_contacts`) | 71 | 12 |
-| `linggollms-aphasia-webapp` | 271 | Sept 22 – Nov 2 | 46 | 139: the same 65, plus 74 on AWS RDS (`0000` to `0073_lagoon_default_theme`) | 70 | 26 |
-| `website-refresh-studio` | 49 | Oct 16 – Nov 1 | | | | |
-| `linggollms-animation-studio` | 37 | Oct 29 – Oct 30 | | | | |
-
-Across the whole organization: **about 2,000 unique commits** on all branches (1,906 on `main` plus 98 on other branches; feature branches of the Aphasia app hold 50 of those). The smaller repos (ops, design system, docs, this profile, social, fundraising) add 12 on `main`. Pull requests from the `mylinggo` period are not counted, because that repository is no longer reachable; its commits are.
-
-Every database change is a numbered SQL file, rehearsed on a local Postgres before it is deployed; on AWS a build job inside the private network applies only the files it has not recorded.
-
-```mermaid
-xychart-beta
-  title "Commits per week, all four repos (weeks starting Monday, 2026)"
-  x-axis ["Aug 31", "Sep 7", "Sep 14", "Sep 21", "Sep 28", "Oct 5", "Oct 12", "Oct 19", "Oct 26", "Nov 2"]
-  y-axis "Commits" 0 --> 750
-  bar [1, 172, 728, 50, 99, 64, 386, 128, 250, 16]
-```
-
-
-Until mid-October, commits reached GitHub through a hosting tool's sync, so the September bars show when work arrived rather than exact build days.
+Every change lands on a branch and goes through a pull request. Every database change is a numbered SQL migration, rehearsed on a local Postgres before it is deployed; on AWS a build job inside the private network applies only the files it has not recorded. Each app repo carries its own tests and a `docs/` folder that is the record of truth for that app. As of November 2, 2026: 114 migrations and 71 tests in the ASD/IDD app, 139 migrations and 70 tests in the Aphasia app, and 38 documentation pages between them.
 
 ### Notable doc changes
 
@@ -125,14 +103,17 @@ flowchart LR
   F --> S["S3<br/>pictures"]
   F --> V["Polly<br/>voices"]
   F --> AI["Bedrock<br/>AI helpers"]
-  D -. Aphasia only .-> N["Neptune<br/>language graph"]
+  D -. Aphasia built, ASD/IDD soon .-> N["Neptune<br/>language graph"]
+  F -. planned .-> FH["Smile CDR · FHIR R4<br/>private subnet"]
 ```
 
 Each app has its own sign-in pool, database, buckets and keys; health information never mixes between them. Postgres is the record of everything. Row-level security in Postgres decides what each signed-in person can read, using the token Cognito gives them. Neptune sits beside Postgres and links a person to what they said, to the words and pictures they used, to what each word means *for them*: first the person's own graph, later an anonymous shared graph from people who opt in. Only HIPAA-eligible AWS services touch what a person says; any outside voice or AI service needs a BAA or stays off.
 
-**Where it stands (November 2, 2026).** Both apps have their Fargate copy built in a private network; App Runner still serves traffic until the DNS switch, then is paused. Next: the database API moves off App Runner into the private network, the ASD/IDD database is rebuilt inside its private network from the same CloudFormation kit as the aphasia app, then Multi-AZ, a second NAT and AWS WAF before real patients. Each repo's `docs/architecture.md` has the full picture and the gap list; the public summary is [here](https://github.com/linggollms/linggollms-docs/blob/main/platform/architecture.md).
+**Where it stands (November 3, 2026).** Both apps have their Fargate copy built in a private network; App Runner still serves traffic until the DNS switch, then is paused. The Aphasia account has GuardDuty, the HIPAA conformance pack and Security Hub running; its Neptune cluster is built and kept stopped until the write path ships. Next: the database API moves off App Runner into the private network, the ASD/IDD database is rebuilt inside its private network from the same CloudFormation kit as the Aphasia app, then Multi-AZ, a second NAT and AWS WAF before real patients. Each repo's `docs/architecture.md` has the full picture and the gap list; the public summary is [here](https://github.com/linggollms/linggollms-docs/blob/main/platform/architecture.md).
 
-In progress: an AI assistant inside each app for questions and support, on Bedrock in the same account; for Aphasia, PHI intake by email (every message carries a confidentiality addendum) and by secure upload in the app, into the account's encrypted storage, processed inside the boundary. After the beta: iOS, Google Play and Amazon Appstore apps from the same code base.
+In progress: an AI assistant inside each app for questions and support, on Bedrock in the same account; for Aphasia, PHI intake by email (every message carries a confidentiality addendum) and by secure upload in the app, into the account's encrypted storage, processed inside the boundary.
+
+**Planned: hospitals and payers through FHIR.** Each product account gets its own FHIR layer so the two products never share one: a Smile CDR server (proposed; AWS HealthLake as the fallback) in a private subnet with its own encrypted database, reachable only by that account's app server, as the single door to hospital EHRs, payers and a future DME supplier partner. Three new apps on the same code base use it: Coach (SLPs, BCBAs and RBTs; a SMART on FHIR app launched from the EHR and listed in Smile's appSphere, with the SLP evaluation template built in), Admin (clinics, schools and hospitals) and Companion (families and carers, with consent on the person's behalf). Prior authorization follows the CMS-0057-F flow (CRD, DTR, PAS) ahead of the January 2027 payer deadline. Boards, taps, voice and the language graph stay in Linggo LLMs' own storage; only consented, minimum-necessary clinical data enters FHIR. The phases, the FHIR resource set and the decision record (ADR-016) are in the [architecture page](https://github.com/linggollms/linggollms-docs/blob/main/platform/architecture.md). After the beta: iOS, Google Play and Amazon Appstore apps from the same code base.
 
 ---
 
